@@ -259,9 +259,12 @@ func (c *Collector) ensureConnection() error {
 }
 
 func (c *Collector) closeConnections() {
-	if err := c.db.Close(); err != nil {
-		c.logger.Error("failing to close connection", "err", err)
-	}
+
+	if c.db != nil {
+    	if err := c.db.Close(); err != nil {
+			c.logger.Error("failing to close connection", "err", err)
+		}
+    }
 	c.db = nil
 }
 
